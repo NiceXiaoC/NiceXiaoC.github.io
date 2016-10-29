@@ -1,0 +1,207 @@
+@charset "UTF-8";
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,span{padding:0;margin:0;border:none;}
+body{font-size:12px;font-family:"Microsoft YaHei","微软雅黑","Arial","黑体","宋体",sans-serif;background:#ececec;}
+ul,li{list-style: none;}
+fieldset,img,html,body,iframe{border:0;}
+h1,h2,h3,h4,h5,h6,em,strong,b,i{font-style:normal;font-size:100%;font-weight: normal;}
+input,textarea,a,button,select{outline: none;font-size:12px;border:0;}
+input::-ms-clear,input::-ms-reveal{display: none;}
+textarea{overflow:auto;resize:none;}
+textarea,input,button,select{color:inherit;font-family: "Microsoft YaHei","微软雅黑","Arial","黑体","宋体",sans-serif;}
+.fl{float:left;}
+.fr{float:right;}
+.clear{clear:both;display: block;}
+.hide{display: none;}
+body{-moz-user-select: none;-o-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;
+    background-image:url(../images/bg_02.jpg); background-repeat: no-repeat;background-size:cover;background-position: 50% 50%;}
+body,html{width:100%;height:100%;overflow: hidden;font-size:14px;color:#666;}
+a{text-decoration: none;outline: none;}
+/*禁止选中*/
+.noSel{-moz-user-select: none;-o-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;}
+.clear{content: "";width:0;height:0;display:block;overflow: hidden;clear: both;}
+
+/*改变谷歌滚动条的样式*/
+::selection{background:pink;}
+::-webkit-scrollbar{width:8px;height:6px;background:#ccc;}
+::-webkit-scrollbar-button{background-color:#fafafa;}
+::-webkit-scrollbar-track{background:#999;}
+::-webkit-scrollbar-track-piece{background:#ccc}
+::-webkit-scrollbar-thumb{background:#666;}
+::-webkit-scrollbar-corner{background:#82AFFF;}
+::-webkit-scrollbar-resizer{background:#FF0BEE;}
+scrollbar{-moz-appearance:none !important;background:rgb(0,255,0) !important;}
+scrollbarbutton{-moz-appearance:none !important;background-color:rgb(0,0,255) !important;}
+scrollbarbutton:hover{-moz-appearance:none !important;background-color:rgb(255,0,0) !important;}
+/* 隐藏上下箭头 */
+ scrollbarbutton{display:none !important;}
+/* 纵向滚动条宽度 */
+ scrollbar[orient="vertical"]{min-width:12px !important;}
+ /*
+    1366*768 1440*900 div---如果你是用fixed的div层的高度一定要控制在：520px以内 
+ */
+
+
+//music
+.music{
+    width:900px;height:530px;position: absolute;top:0;left:0;right:0;bottom:0;margin:auto;
+    .title{
+        padding:0 20px; height:45px;line-height:45px;font-size:18px;color:#fff;
+        background:rgba(225,174,131,0.5);
+        font-style: italic;font-weight:bold;
+        font-family: Constantia, Georgia;
+        &:after{.clear;}
+        span{display: block;.fl;}
+        p{.fl;margin-left:180px;position: relative;
+            input{
+             padding:5px 30px 5px 15px; width:200px;border-radius:13px;color:#666;font-weight:600;
+            }
+            .ic{
+                position: absolute;width:17px;height:17px;right:10px;top:0;
+                background-position:0px -436px;color:#666;
+                transition: color 0.5s ease;
+                &:hover{
+                    color:#da9e7a;
+                }
+            }
+        }
+        .close{.fr;font-size:20px;color:#fff;
+            transition: transform 1s ease;
+            &:hover{
+                transform-origin: center center center;
+                transform: rotate(360deg);
+            }
+        }
+    }
+    
+    //列表
+    .ms-lists{
+        width:220px;height:405px;.fl;
+        .song-title{
+            height:30px;line-height:30px;color:#666;text-align: center;position: relative;
+            background:rgba(234,198,134,0.5);
+            span{font-size:16px;}
+        }
+        .s-lists{
+            height:395px;overflow-y:auto;background:rgba(255,255,255,0.7);
+            li{
+                height:30px;line-height:30px;overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+                &:hover,&.active{background:#e8e8e8;}
+                a{display: block;padding-left:25px;color:#666;font-size:14px;}
+            }
+        }
+    }
+    
+    //歌词
+    .ms-lyrics{
+        width:680px;height:425px;.fr;background:rgba(255,255,255,0.9);position: relative;
+        .canvas{position: absolute;left:0;top:0;right:0;bottom:0;margin:auto;z-index:1;}
+        .lrcCon{width:100%;position: absolute;bottom:20px;text-align:center;
+            p{width:100%;line-height:30px;font-size:20px;color:#df9978;}
+        }
+        
+        //搜索
+        .searchLists{
+            width:100%;height:100%; display: none; position: absolute;top:0;left:0;background:rgba(255,255,255,0.85);z-index:10;
+            transition:all 0.5s ease;overflow:hidden;
+            .song-title{
+                width:100%;height:30px;margin-top:15px;
+                li{float:left;width:20%;text-align: center;line-height:30px;
+                    a{color:#666;font-size:16px;}
+                }
+                .packupLists{
+                    display: block;position: absolute;right:10px;top:16px;
+                    font-size:20px;color:#666;
+                    &:hover{
+                        color:#d38f74;
+                    }
+                }
+            }
+            .sl-details{
+                width:100%;height:auto;overflow:hidden;
+                ul{
+                    min-height: 330px;
+                }
+                li{width:100%;height:30px;line-height:30px;
+                    a{display: block;width:20%;height:30px;.fl;
+                    text-align: center;font-size:16px;color:#666;
+                    overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+                    }
+                    
+                    &:hover{
+                        background:#ccc;
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    //控制条
+    .control-bar{
+        height:60px;background:#f9f8f8;clear:both;
+        &:after{.clear;}
+        
+        /*播放控制*/
+        .ctro-play{
+            height:60px;padding:0 10px 0 30px;.fl;overflow:hidden;
+            .prev-song,.next-song{
+                padding:21.5px 10px;.fl;
+                a{display: block;width:13px;height:17px;
+                    background-repeat: no-repeat;
+                }
+            }
+            .prev-song{
+                a{background-image: url(../images/prev.png);}
+            }
+            .next-song{
+                a{background-image: url(../images/next.png);}
+            }
+            .playBtn{.fl;
+                padding:1.5px 5px;
+                a{
+                    display: block;width:57px;height:57px;
+                    background-repeat:no-repeat;
+                    background-image: url(../images/pause.png);
+                    &.play{
+                      background-image: url(../images/play.png);  
+                    }
+                }
+            }
+        }
+        
+        /*音量控制*/
+       .ctro-volume{
+           .fl;width:120px;height:60px;padding:23.5px 0; box-sizing: border-box;font-size:0;
+           .icon-vol{
+               display: inline-block;
+               height:13px;width:13px;background:url(../images/sound.png);
+           }
+           .volume-bar{
+               width:100px;height:2px;display:inline-block;background:#b6b6b6;
+               margin-left:7px;position: relative;top:-6px;
+               .dragBar{
+                   width:30px;height:2px;display: block;background:#20b6f1;
+               }
+               .circle-bar{display: block;width:12px;height:12px;
+                background:url(../images/circleBar.png);position: absolute;top:-6px;left:30px;
+               }
+           }
+       }
+       .ctro-progress{
+               width:520px;.fl;margin-left:30px;font-size:0;
+               .timer{
+                   display:inline-block;height:60px;line-height:60px;color:#666;font-size:16px;
+               }
+               .progress-bar{
+                   width:400px;height:2px;display: inline-block;
+                   background:#b6b6b6;margin-left:7px;position: relative;top:-5px;
+                   .dragBar{width:0;height:2px;display: block;background:#20b6f1;}
+                   .circle-bar{width:12px;height:12px;display: block;
+                    position: absolute;top:-6px;left:0;background: url(../images/circleBar.png);
+                   }
+               }
+           }
+    }
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>index</title>
+<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/main.css"/>
+<style id="myStyles"></style>
+</head>
+<body >
+<div id="wrapper">
+	<div id="scroller">
+		
+		<!--banner start-->
+		<div class="swiper-container swiper-container-s">
+    		 <div class="swiper-wrapper">
+    		 	<div class="swiper-slide">
+	            	<a href="javascript:void(0)">
+	            		<img data-src="images/1.jpg" class="swiper-lazy">
+            			<div class="swiper-lazy-preloader"></div>
+	            	</a>
+	            </div>
+	           <div class="swiper-slide">
+	            	<a href="javascript:void(0)">
+	            		<img data-src="images/2.jpg" class="swiper-lazy">
+            			<div class="swiper-lazy-preloader"></div>
+	            	</a>
+	            </div>
+	            <div class="swiper-slide">
+	            	<a href="javascript:void(0)">
+	            		<img data-src="images/3.jpg" class="swiper-lazy">
+            			<div class="swiper-lazy-preloader"></div>
+	            	</a>
+	            </div>
+	            <div class="swiper-slide">
+	            	<a href="javascript:void(0)">
+	            		<img data-src="images/4.jpg" class="swiper-lazy">
+            			<div class="swiper-lazy-preloader"></div>
+	            	</a>
+	            </div>
+	            <div class="swiper-slide">
+	            	<a href="javascript:void(0)">
+	            		<img data-src="images/5.jpg" class="swiper-lazy">
+            			<div class="swiper-lazy-preloader"></div>
+	            	</a>
+	            </div>
+    		 </div>
+    		  <!-- Add Pagination -->
+    		  <div class="swiper-pagination"></div>
+    	</div>
+    	<!--banner end-->
+    	
+    	<div class="dom" id="domes">
+    		
+    		<div class="swiper-container swiper-container-dom">
+    			<div class="swiper-wrapper">
+    		 		<div class="swiper-slide">
+    		 			<a href="dome/posi.html">简历详情列表dome</a>
+    		 		</div>
+    		 		<div class="swiper-slide">
+    		 			<a href="dome/dome.html">校招切换dome</a>
+    		 		</div>
+    		 		<div class="swiper-slide">
+    		 			<a href="wei/index.html">微场景dome</a>
+    		 		</div>
+    		 	</div>	
+    		</div>
+			
+			
+		</div>
+    	
+    	<!--3D 切换特效-->
+    	<div class="panel-lists" id="contents"></div>
+		
+	</div>
+</div>
+
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript" src="js/transform.js"></script>
+
+<script type="text/javascript">
+	setSize();
+	
+	var html = document.querySelector("html");
+	var myStyles = document.querySelector("#myStyles");
+	var htmlRect = html.getBoundingClientRect();
+	var style = "";
+	var z  = (Math.tan(30*Math.PI/180) *(htmlRect.width/8)).toFixed(4);
+	
+	var contents = document.querySelector("#contents");
+	
+	//初始化，3d列表
+	var allLis = "";
+	for(var i=0;i<5;i++){
+		allLis+="<ul class='contents'><li><div></div><div></div><div></div></li><li><div></div><div></div><div></div></li><li><div></div><div></div><div></div></li><li><div></div><div></div><div></div></li></ul>";
+	}
+	contents.innerHTML = allLis;
+	
+	var li = document.querySelectorAll("#contents li");
+	var deg = 120;
+	
+	//设置样式
+	style += ".panel-lists li{-webkit-transform: translateZ(-"+z+"px) rotateY(0deg);transform: translateZ(-"+z+"px) rotateY(0deg);}";
+	for(var i=0;i<3;i++){
+		style += ".panel-lists li div:nth-of-type("+(i+1)+"){-webkit-transform:rotateY("+(i*120)+"deg) translateZ("+z+"px);transform: rotateY("+(i*120)+"deg) translateZ("+z+"px);}";
+	}
+	
+	// 设置背景图片
+	var count = 0;
+	var ul = contents.querySelectorAll("ul");
+	for(var k = 0;k<ul.length;k++){
+		var $li = ul[k].querySelectorAll("li");
+		for(var i=0;i<$li.length;i++){
+			var $div = $li[i].querySelectorAll("div");
+			for(var j=0;j<$div.length;j++){
+				style += ".panel-lists ul:nth-of-type("+(k+1)+") li:nth-of-type("+(i+1)+") div:nth-of-type("+(j+1)+"){background-image: url(images/bg"+(++count)+".jpg)} "
+			}
+		}
+	}
+	
+	myStyles.innerHTML += style;
+	for(var i=0;i<li.length;i++){
+		cssTransform(li[i],"translateZ",-z);
+		cssTransform(li[i],"rotateY",0);
+	}
+	
+	//3D 切换
+	var starDeg = 0;
+	var startPoint = 0;
+	contents.addEventListener("touchstart",function(e){
+		for(var i=0;i<li.length;i++){
+			li[i].style.transition = "none";
+		}
+		startPoint = e.changedTouches[0].pageX;
+		starDeg = cssTransform(li[0],"rotateY");
+	});
+	
+	contents.addEventListener("touchmove",function(e){
+		var dis = e.changedTouches[0].pageX - startPoint;
+		var disDeg = dis/htmlRect.width*deg;
+		for(var i=0;i<li.length;i++){
+			cssTransform(li[i],"rotateY",starDeg + disDeg);
+		}
+	});
+	contents.addEventListener("touchend",function(e){
+		var nowDeg = cssTransform(li[0],"rotateY");
+		var now = - (Math.round(nowDeg /deg));
+		for(var i=0;i<li.length;i++){
+			li[i].style.transition = "0.3s";
+			li[i].style.webkitTransition = "0.3s";
+			cssTransform(li[i],"rotateY",-now*deg);
+		}
+	});
+	
+	
+	var myScroll = new IScroll('#wrapper', { // 初始化 iscroll
+		scrollbars: true,
+		mouseWheel: true,
+		interactiveScrollbars: true,
+		shrinkScrollbars: 'scale',
+		fadeScrollbars: true
+	});
+	
+	var swiper1 = new Swiper('.swiper-container-s', { //初始化轮播图
+        pagination : ".swiper-pagination", //初始化小按钮
+        paginationClickable: true, //初始化小按钮点击
+        lazyLoading : true, //开始预加载
+       	autoplay : 3000, //自动播放
+       	autoplayDisableOnInteraction : false // 手动滑屏后，再次触发自动切换
+    });
+    
+    var  ddd = new Swiper('.swiper-container-dom',{
+    	slidesPerView   : 2,
+    	preventClicks : false
+    })
+	
+	function setSize(){
+    	var html = document.documentElement;
+        var windowWidth = html.clientWidth; 
+        if(windowWidth>=640){
+        	windowWidth = 640;
+        }
+        html.style.fontSize = windowWidth * 100 / 750 + 'px';
+    }
+	//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	
+	var domes = document.getElementById("domes");
+	var linkA = domes.querySelectorAll("a");
+	
+	
+</script>
+</body>
+</html>
